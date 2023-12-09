@@ -1,6 +1,9 @@
 import express from "express"
 import { config } from 'dotenv';
 import { connectDB } from "./data/database.js";
+import { Login, Register } from "./controllers/user.js";
+import { errorMiddleware } from "./middleware/error.js";
+
 
 export const app = express();
 config({
@@ -17,7 +20,12 @@ app.get('/health', (req, res) => {
     });
 });
 
+app.post('/register', Register)
+app.post('/login', Login)
+
+
 const port = process.env.PORT || 3001
 app.listen(port, () => {
     console.log(`Server is working on port : ${port}`)
 })
+app.use(errorMiddleware)
