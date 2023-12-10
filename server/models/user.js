@@ -11,13 +11,18 @@ const schema = new mongoose.Schema({
     },
     password: {
         type: String,
+        required: true
+
     },
     mobile: {
         type: String,
+        required: true
+
     }
     , createAt: {
         type: Date,
-        default: Date.now
+        default: Date.now,
+
     }
 })
 export const User = mongoose.model("User", schema)
