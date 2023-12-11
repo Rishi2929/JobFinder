@@ -3,6 +3,8 @@ import { config } from 'dotenv';
 import { connectDB } from "./data/database.js";
 import { Login, Register } from "./controllers/user.js";
 import { errorMiddleware } from "./middleware/error.js";
+import { newJob } from "./controllers/jobdetail.js";
+import isAuthenticated from "./middleware/auth.js";
 
 
 export const app = express();
@@ -22,6 +24,8 @@ app.get('/health', (req, res) => {
 
 app.post('/register', Register)
 app.post('/login', Login)
+app.post('/new', isAuthenticated, newJob)
+
 
 
 const port = process.env.PORT || 3001
