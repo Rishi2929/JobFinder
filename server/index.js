@@ -1,20 +1,20 @@
-import express from "express"
+import express from "express";
 import { config } from 'dotenv';
 import { connectDB } from "./data/database.js";
-import { Login, Register } from "./controllers/user.js";
 import { errorMiddleware } from "./middleware/error.js";
-import { newJob } from "./controllers/jobdetail.js";
-import isAuthenticated from "./middleware/auth.js";
-
+import userRouter from "./routes/user.js";
+import jobRouter from "./routes/job.js";
 
 export const app = express();
 config({
     path: "./data/config.env"
-})
-connectDB()
-//Middleware
-app.use(express.json())
+});
+connectDB();
 
+// Middleware
+app.use(express.json());
+
+// Health check route
 app.get('/health', (req, res) => {
     res.status(200).json({
         status: 'Active',
@@ -22,14 +22,14 @@ app.get('/health', (req, res) => {
     });
 });
 
-app.post('/register', Register)
-app.post('/login', Login)
-app.post('/new', isAuthenticated, newJob)
+// Use routers
+app.use('/user', userRouter);
+app.use('/job', jobRouter);
 
+// Error middleware
+app.use(errorMiddleware);
 
-
-const port = process.env.PORT || 3001
+const port = process.env.PORT || 3001;
 app.listen(port, () => {
-    console.log(`Server is working on port : ${port}`)
-})
-app.use(errorMiddleware)
+    console.log(`Server is working on port: ${port}`);
+});
