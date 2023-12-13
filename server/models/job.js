@@ -4,6 +4,10 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
+    recruiterName: {
+        type: String,
+        required: true
+    },
     logoURL: {
         type: String,
         required: true
@@ -38,7 +42,7 @@ const schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    SkillsRequired: {
+    skills: {
         type: [String],
         required: true
     },
@@ -58,4 +62,4 @@ const schema = new mongoose.Schema({
 
 
 })
-export const JobDetails = mongoose.model("JobDetails", schema)
+export const Job = mongoose.model("Job", schema)

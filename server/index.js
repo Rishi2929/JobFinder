@@ -23,8 +23,14 @@ app.get('/health', (req, res) => {
 });
 
 // Use routers
-app.use('/user', userRouter);
-app.use('/job', jobRouter);
+app.use('/api/v1/user', userRouter);
+app.use('/api/v1/job', jobRouter);
+
+app.use((req, res, next) => {
+    res.status(404).send("Not Found ");
+});
+
+
 
 // Error middleware
 app.use(errorMiddleware);
