@@ -4,6 +4,8 @@ import { connectDB } from "./data/database.js";
 import { errorMiddleware } from "./middleware/error.js";
 import userRouter from "./routes/user.js";
 import jobRouter from "./routes/job.js";
+import cors from 'cors';
+
 
 export const app = express();
 config({
@@ -13,6 +15,11 @@ connectDB();
 
 // Middleware
 app.use(express.json());
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+}))
 
 // Health check route
 app.get('/health', (req, res) => {

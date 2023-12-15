@@ -15,14 +15,11 @@ export const Register = async (req, res, next) => {
 
         user = await User.create({ name, email, password: hashedPassword, mobile })
 
-        // const recruiterName = await getRecruiterNameFromJobDetails(user);
-
-
         const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_KEY, { expiresIn: '1h' });
 
         res.setHeader('Authorization', `Bearer ${token}`);
 
-        res.status(201).json({ message: 'Registered', token });
+        res.status(201).json({ message: 'Registered', token, name: user.name });
 
     } catch (error) {
         next(error)
@@ -34,20 +31,21 @@ export const Login = async (req, res, next) => {
 
         const user = await User.findOne({ email }).select("+password");
 
+        console.log(email)
+
+
         if (!user) return next(new ErrorHandler("Invalid Email or Password", 400));
 
         const isMatch = await bcrypt.compare(password, user.password)
-
-        // const recruiterName = await getRecruiterNameFromJobDetails(user);
-
 
         if (!isMatch) return next(new ErrorHandler("Invalid Email or Password", 400));
 
         const token = jwt.sign({ userId: user._id, email: user.email }, process.env.JWT_KEY, { expiresIn: '1h' });
 
         res.setHeader('Authorization', `Bearer ${token}`);
+        console.log(User.name)
 
-        res.status(201).json({ message: 'Logged In', token });
+        res.status(201).json({ message: 'Logged In', token, name: user.name });
 
     } catch (error) {
         next(error)

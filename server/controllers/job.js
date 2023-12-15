@@ -50,11 +50,9 @@ export const updateJob = async (req, res, next) => {
 
 export const getAllJobs = async (req, res, next) => {
     try {
-
         const jobs = await Job.find();
         res.status(200).json({ success: true, jobs });
     } catch (error) {
-
         next(error);
     }
 };
@@ -67,7 +65,6 @@ export const getFilteredJobs = async (req, res, next) => {
         if (!skills) {
             return next(new ErrorHandler('Skills parameter is required for filtering jobs.', 400));
         }
-
         const skillsArray = skills.split(',');
 
         const jobs = await Job.find({ SkillsRequired: { $in: skillsArray } });
