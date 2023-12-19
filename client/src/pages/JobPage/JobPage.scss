@@ -1,0 +1,100 @@
+.add-job-page {
+    display: flex;
+
+    .left-div {
+        width: 55vw;
+
+        .fields {
+            display: flex;
+            flex-direction: column;
+            margin-left: 2.5rem;
+            margin-top: 2rem;
+            margin-right: 3rem;
+
+            // h1 {
+            //     margin-bottom: 1rem;
+            // }
+
+            // label {
+            //     width: 50rem;
+            //     display: flex;
+            //     flex-direction: row;
+            //     align-items: center; // Align items vertically in the center
+            //     margin-bottom: 1rem;
+            //     background-color: green;
+
+            //     input {
+            //         margin-left: 7rem; // Adjust as needed
+            //         width: 14rem;
+            //         background-color: yellow;
+            //     }
+            // }
+
+            .form-container {
+                display: flex;
+                max-width: 800px;
+            }
+
+            .column {
+                flex: 1;
+                padding: 20px;
+
+
+
+                .input-container {
+                    display: flex;
+
+                    input {
+                        border: 2px solid #ADADAD;
+                        border-radius: 6px;
+                    }
+
+                    select {
+                        border: 2px solid #ADADAD;
+                        border-radius: 6px;
+                        width: 8rem;
+                        margin-left: -3.5rem;
+                        padding-left: 2rem;
+                        color: #ADADAD;
+                    }
+
+                    label {
+                        width: 14rem;
+                    }
+
+                    .job-des {
+                        height: 5rem;
+                    }
+
+                    .about-com {
+                        height: 5rem;
+
+                    }
+
+                }
+            }
+
+            .column label {
+                display: block;
+                margin-top: 10px;
+                margin-bottom: 0px;
+                font-weight: bold;
+            }
+
+            .column input,
+            .column select {
+                width: 100%;
+                padding: 8px;
+                margin-bottom: 15px;
+                box-sizing: border-box;
+            }
+        }
+    }
+
+    .right-div {
+        img {
+            height: 100vh;
+            width: 45vw;
+        }
+    }
+}

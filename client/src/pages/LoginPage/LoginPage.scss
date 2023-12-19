@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,400&family=Great+Vibes&family=Poppins:wght@500&display=swap');
+
+.parent-cont {
+    height: 100vh;
+    display: flex;
+    overflow: hidden;
+    font-family: 'DM Sans';
+
+    .login-div {
+        width: 61vw;
+        padding-top: 14rem;
+        padding-left: 9rem;
+
+        h1 {
+            margin-bottom: 0.5rem;
+            font-weight: 900;
+            font-size: 2rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            margin-top: 2rem;
+
+            input {
+                height: 3.5rem;
+                width: 28rem;
+                margin-bottom: 20px;
+                padding-left: 10px;
+                border-radius: 5px;
+                border: 1.5px solid #C2C2C2;
+            }
+
+            label {
+                display: flex;
+            }
+
+            .checkbox {
+                width: 1rem;
+                height: 2rem;
+                margin-right: 8px;
+                margin-top: -5px;
+
+            }
+
+            .btn {
+                height: 3rem;
+                width: 15rem;
+                font-size: 1.5rem;
+                background-color: #ED5353;
+                border: none;
+                border-radius: 5px;
+                color: white;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .bottom-cont {
+            display: flex;
+        }
+
+        .checkbox_msg {
+            color: red;
+            margin-top: -1rem;
+            margin-bottom: 1rem;
+
+        }
+
+
+    }
+
+    .right-div {
+        height: 100vh;
+
+        .img1 {
+            height: 100vh;
+        }
+    }
+}

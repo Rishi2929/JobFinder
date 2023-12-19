@@ -37,8 +37,6 @@ app.use((req, res, next) => {
     res.status(404).send("Not Found ");
 });
 
-
-
 // Error middleware
 app.use(errorMiddleware);
 

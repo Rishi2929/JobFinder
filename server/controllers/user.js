@@ -52,3 +52,19 @@ export const Login = async (req, res, next) => {
 
     }
 }
+export const Logout = async (req, res, next) => {
+    try {
+        // Clear the authorization header of the request
+        res.setHeader('Authorization', '');
+
+        // Invalidate the JWT token (optional)
+        // You can implement token blacklisting or other techniques for token invalidation
+        // jwt.decode(req.header('Authorization').split(' ')[1]); // Get token from header
+        // // Implement token invalidation logic here
+
+        // Send a success response
+        res.status(200).json({ message: 'Logged Out', });
+    } catch (error) {
+        next(error);
+    }
+};

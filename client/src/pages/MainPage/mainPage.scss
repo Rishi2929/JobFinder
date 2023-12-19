@@ -1,0 +1,170 @@
+.job-list {
+    // background-color: cyan;
+
+    .single-job {
+        width: 75vw;
+        height: 7rem;
+        margin-left: 12.5vw;
+        background-color: white;
+        margin-bottom: 1rem;
+        box-shadow: 0px 1px 10px #ED5353;
+        padding: 15px;
+
+        .job-title {
+            font-size: 1.5rem;
+        }
+
+        .col2 {
+            display: flex;
+            width: 90rem;
+            // background-color: blue;
+
+            .details-col2 {
+                width: 20rem;
+                // background-color: cyan;
+                display: flex;
+            }
+
+            p {
+                margin-right: 1rem;
+            }
+
+            .right {
+                margin-left: 8rem;
+                display: flex;
+                // background-color: red;
+                width: 40rem;
+                flex-direction: row-reverse;
+
+                .filters {
+                    margin-left: 1rem;
+                    background-color: #FFEEEE;
+                    width: auto;
+                    padding: 8px;
+                }
+            }
+        }
+
+        .col3 {
+            display: flex;
+
+            .flexdetails {
+                display: flex;
+                // margin-left: 1rem;
+
+                p {
+                    margin-left: 1rem;
+                }
+            }
+
+            .btns {
+                // position: absolute;
+                // margin-left: 10rem;
+                margin-top: 1.5rem;
+                // background-color: blue;
+                display: flex;
+                flex-direction: row-reverse;
+                padding-left: 43rem;
+
+                .flex-btn {
+                    .details-btn {
+                        width: 7rem;
+                        margin-right: 0rem;
+                        height: 1.5rem;
+                        padding: 8px;
+                        background-color: #ED5353;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        color: white;
+                    }
+
+                    .edit-btn {
+                        width: 7rem;
+                        // margin-left: 10rem;
+
+                        height: 1.5rem;
+                        padding: 8px;
+                        margin-right: 1rem;
+                        background-color: white;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        border: 2px solid #ED5353;
+                        color: #ED5353;
+
+                    }
+                }
+
+            }
+        }
+
+    }
+}
+
+.flexheading {
+    .search-box {
+        margin-left: 12.5vw;
+        width: 75vw;
+        height: 12rem;
+        // background-color: cyan;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+        background-color: white;
+        margin-bottom: 1rem;
+        box-shadow: 0px 1px 10px #ED5353;
+        padding: 15px;
+
+
+        .input-box {
+            .jobTitleInput {
+                width: 60vw;
+                height: 3rem;
+                margin-left: 5rem;
+                margin-top: 2rem;
+                border-radius: 10px;
+                border: 2px solid #E3E3E3;
+                padding-left: 3rem;
+                color: #E3E3E3;
+            }
+
+            .search-icon {
+                position: absolute;
+                margin-left: 6rem;
+                margin-top: 2.8rem;
+
+            }
+
+            .jobTitleInput::placeholder {
+                color: #9C9C9C;
+                font-size: 1rem;
+            }
+
+
+
+        }
+    }
+
+    .flex-col2 {
+        display: flex;
+        margin-top: 2rem;
+        margin-left: 5rem;
+
+        .dropdown {
+            width: 47.6rem;
+        }
+
+        .add-job-btn {
+            .job-btn {
+                display: block;
+                width: 7rem;
+                margin-right: 0rem;
+                height: 1.5rem;
+                padding: 10px;
+                padding-left: 2rem;
+                background-color: #ED5353;
+                text-decoration: none;
+                border-radius: 5px;
+                color: white;
+            }
+        }
+    }
+}
