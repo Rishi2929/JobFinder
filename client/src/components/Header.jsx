@@ -11,27 +11,24 @@ import toast from 'react-hot-toast';
 
 function Header() {
     const { isAuthenticated, setIsAuthenticated } = useContext(Context)
+    const recruiterName = JSON.parse(localStorage.getItem('Recruiter Name'));
 
 
 
     const logoutHandler = async () => {
-
         try {
-            // console.log("first login")
-            const response = await axios.get('http://localhost:3000/api/v1/user/logout',);
-            // console.log("second login")
+            const response = await axios.get('http://localhost:3000/api/v1/user/logout');
             localStorage.removeItem('token');
-            setIsAuthenticated(false);
-            // console.log(" if statement")
-            toast.success(response.data.message);
+            localStorage.removeItem('Recruiter Name'); // Remove user information
 
+            setIsAuthenticated(false);
+            toast.success(response.data.message);
         } catch (error) {
-            // console.log("catch")
-            // console.log("catch if statement")
             toast.error(error.response.data.message);
             setIsAuthenticated(false);
         }
     };
+
 
 
     return (
@@ -48,19 +45,21 @@ function Header() {
 
                 </div>
                 <div className='img-cont'>
-                    {/* <img src={rect}></img> */}
-                    {isAuthenticated ?
+                    <img src={rect}>
+
+                    </img>
+
+                    <div className='dialog-box'> {isAuthenticated ?
                         <div className="flex-btn">
-                            <button className='btn-1' onClick={logoutHandler}>Logout</button>
-                            {/* <Link className='btn-2'>Hii Rishi</Link> */}
-                            <p>Hii,{isAuthenticated.user.name}</p>
+                            <button className='logout-btn' onClick={logoutHandler}>Logout</button>
+                            <p className='name'>Hello! {recruiterName}</p>
                         </div>
                         :
                         <div className="flex-btn">
                             <Link to="/login" className='btn-1'>Login</Link>
                             <Link to="/register" className='btn-2'>Register</Link>
                         </div>
-                    }
+                    }</div>
                 </div>
 
 

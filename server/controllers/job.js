@@ -4,11 +4,10 @@ import { Job } from "../models/job.js";
 
 export const newJob = async (req, res, next) => {
     try {
-        const { companyName, recruiterName, logoURL, JobPosition, MonthlySalary, JobType, remote, Location, JobDescription, AboutCompany, SkillsRequired, Information } = req.body;
+        const { companyName, logoURL, JobPosition, MonthlySalary, JobType, remote, Location, JobDescription, AboutCompany, skills, Information } = req.body;
 
         const job = await Job.create({
             companyName,
-            recruiterName,
             logoURL,
             JobPosition,
             MonthlySalary,
@@ -17,7 +16,7 @@ export const newJob = async (req, res, next) => {
             Location,
             JobDescription,
             AboutCompany,
-            SkillsRequired,
+            skills,
             Information,
             user: req.user,
         });

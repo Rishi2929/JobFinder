@@ -16,12 +16,12 @@
 
         .img1cont {
             position: absolute;
-            margin-top: 2.7rem;
-            margin-left: -3rem;
+            margin-top: 5.27vh;
+            margin-left: -4.8vw;
 
             img {
                 width: 20rem;
-                height: 3rem;
+                height: 6vh;
             }
         }
 
@@ -35,13 +35,48 @@
             margin-top: -1.7rem;
 
             img {
-                height: 7.3rem;
+                height: 14.8vh;
+                z-index: 1;
             }
-        }
 
-        .flex-btn {
-            display: flex;
-            margin-left: 5rem;
+
+            .dialog-box {
+                margin-top: -8rem;
+                margin-left: 3rem;
+
+            }
+
+            .flex-btn {
+                display: flex;
+                // margin-left: 0rem;
+
+                .logout-btn {
+                    background-color: transparent;
+                    height: 2rem;
+                    width: 4rem;
+                    color: white;
+                    font-size: 1.3rem;
+                    cursor: pointer;
+                    margin-right: 0.8rem;
+                    margin-top: 2.2rem;
+                    border: 2px solid transparent;
+                }
+
+                .name {
+                    background-color: transparent;
+                    height: 2rem;
+                    padding-left: 1rem;
+                    padding-top: 0.4rem;
+                    color: white;
+                    font-size: 1.3rem;
+                    margin-top: 2rem;
+                    text-decoration: none;
+
+
+                }
+
+            }
+
 
             .btn-1 {
                 background-color: transparent;
@@ -79,7 +114,10 @@
 
             }
 
+
         }
+
+
     }
 
 }

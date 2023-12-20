@@ -42,7 +42,9 @@ function RegisterPage() {
                     password,
                 });
 
-                console.log('Registration response:', response);
+                // console.log('Registration response:', response);
+                localStorage.setItem('Recruiter Name', JSON.stringify(response.data.name)); // Store user information
+
 
                 if (response.data && response.data.message) {
                     const token = response.data.token;

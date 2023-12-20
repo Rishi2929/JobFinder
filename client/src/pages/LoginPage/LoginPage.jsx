@@ -17,13 +17,14 @@ function LoginPage() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            // console.log('Sending Login request...');
+            console.log('Sending Login request...');
             const response = await axios.post('http://localhost:3000/api/v1/user/login', {
                 email,
                 password,
             });
             console.log("User", response.data.name)
-            // console.log("first login successful")
+            localStorage.setItem('Recruiter Name', JSON.stringify(response.data.name)); // Store user information
+
 
             const token = response.data.token;
             localStorage.setItem('token', token);
@@ -46,7 +47,6 @@ function LoginPage() {
             // console.log("first login failed")
             toast.error(error.response.data.message);
             setIsAuthenticated(false);
-
         }
     };
 

@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from '../../components/Header';
 import './mainPage.scss';
 import { Link } from 'react-router-dom';
 import { Search } from 'lucide-react';
+import img4 from '../../assets/img4.png'
+import rupee from '../../assets/rupee.png'
+import group from '../../assets/Group.png'
+import { Context } from '../../main';
+
 
 
 function MainPage() {
     const [jobs, setJobs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const { isAuthenticated, setIsAuthenticated } = useContext(Context)
+
 
     useEffect(() => {
 
@@ -18,16 +25,10 @@ function MainPage() {
                 if (!response.ok) {
                     throw new Error('Failed to fetch jobs');
                 }
-
                 const data = await response.json();
 
-                console.log(data)
-
-                // if (data.success && Array.isArray(data.jobs)) {
+                // console.log(data)
                 setJobs(data.jobs);
-                // } else {
-                //     throw new Error('Fetched data does not contain a valid jobs array');
-                // }
 
             } catch (error) {
                 setError(error.message);
@@ -37,7 +38,7 @@ function MainPage() {
         };
 
         fetchJobs();
-    }, []); // Empty dependency array ensures the effect runs only once when the component mounts
+    }, []);
 
     if (loading) {
         return <p>Loading...</p>;
@@ -46,6 +47,13 @@ function MainPage() {
     if (error) {
         return <p>Error: {error}</p>;
     }
+
+
+    jobs.map(job => {
+        let skill = job.SkillsRequired
+        console.log("JObs", skill)
+    })
+
 
     return (
         <div>
@@ -58,7 +66,10 @@ function MainPage() {
                     </div>
                     <div className="flex-col2">
                         <div className="dropdown">
-                            <button>ljkljkfdldjfkljs</button>
+                            <select>
+                                <option value="">Skills</option>
+
+                            </select>
 
                         </div>
                         <div className="add-job-btn">
@@ -68,17 +79,22 @@ function MainPage() {
                 </div>
                 <div className='job-list'>
                     <div>
+
                         {jobs.map((job) => (
                             <div key={job._id} className='single-job'>
-                                <p className='job-title'>{job.JobPosition}</p>
+                                <div className="icon">
+                                    <img src={img4} />
+                                    <p className='job-title'>{job.JobPosition}</p>
+
+                                </div>
                                 <div className="col2">
                                     <div className="details-col2">
-                                        <p>11-50</p>
-                                        <p>{job.MonthlySalary}</p>
+                                        <p><img src={group} alt="" className='grp-icon' />11-50</p>
+                                        <p><img src={rupee} alt="" className='rupee-icon' />{job.MonthlySalary}</p>
                                         <p>{job.Location}</p>
                                     </div>
                                     <div className="right">
-                                        {job.SkillsRequired && job.SkillsRequired.map((skill, index) => (
+                                        {job.skills && job.skills.map((skill, index) => (
                                             <div className="filters" key={index}>
                                                 {skill}
                                             </div>
@@ -88,16 +104,22 @@ function MainPage() {
 
                                 </div>
                                 <div className="col3">
-                                    <div className="flexdetails">
+                                    <div className="flex-details">
                                         <p>{job.remote}</p>
-
                                         <p>{job.JobType}</p>
                                     </div>
-                                    <div className="btns">
-                                        <div className='flex-btn'>
-                                            <Link to="/details" className='details-btn'>View Details</Link>
-                                            <Link to="/details" className='edit-btn'>Edit Job</Link>
-                                        </div>
+                                    <div className="btn-s">
+
+                                        {isAuthenticated ?
+                                            <div className='flex-btn'>
+                                                <Link to="/details" className={`button edit-btn`}>Edit Job</Link>
+                                                <Link to="/details" className={`button details-btn`}>View Details</Link>
+                                            </div>
+                                            :
+                                            <div className='flex-btn'>
+                                                <Link to="/details" className={`button details-btn`}>View Details</Link>
+                                            </div>
+                                        }
 
                                     </div>
                                 </div>
