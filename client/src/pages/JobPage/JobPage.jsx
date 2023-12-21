@@ -54,8 +54,8 @@ function JobPage() {
             toast.success(data.message)
 
         } catch (error) {
-            toast.error("All fields are required")
-            // console.log(error.response.data)
+            // toast.error("All fields are required")
+            console.log(error.response.data)
             // console.log("error")
 
         }

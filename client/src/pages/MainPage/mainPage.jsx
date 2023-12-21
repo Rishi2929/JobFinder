@@ -27,8 +27,17 @@ function MainPage() {
                 }
                 const data = await response.json();
 
-                // console.log(data)
+
                 setJobs(data.jobs);
+                // console.log("fjds", data.jobs);
+                const allSkills = data.jobs.reduce((skills, job) => {
+                    return skills.concat(job.skills);
+                }, []);
+
+                const uniqueSkills = Array.from(new Set(allSkills));
+
+                console.log(uniqueSkills)
+
 
             } catch (error) {
                 setError(error.message);
@@ -92,6 +101,7 @@ function MainPage() {
                                         <p><img src={group} alt="" className='grp-icon' />11-50</p>
                                         <p><img src={rupee} alt="" className='rupee-icon' />{job.MonthlySalary}</p>
                                         <p>{job.Location}</p>
+
                                     </div>
                                     <div className="right">
                                         {job.skills && job.skills.map((skill, index) => (
@@ -112,12 +122,12 @@ function MainPage() {
 
                                         {isAuthenticated ?
                                             <div className='flex-btn'>
-                                                <Link to="/details" className={`button edit-btn`}>Edit Job</Link>
-                                                <Link to="/details" className={`button details-btn`}>View Details</Link>
+                                                <Link to="/edit" className={`button edit-btn`}>Edit Job</Link>
+                                                <Link to={`/details/${job._id}`} className={`button details-btn`}>View Details</Link>
                                             </div>
                                             :
                                             <div className='flex-btn'>
-                                                <Link to="/details" className={`button details-btn`}>View Details</Link>
+                                                <Link to={`/details/${job._id}`} className={`button details-btn`}>View Details</Link>
                                             </div>
                                         }
 

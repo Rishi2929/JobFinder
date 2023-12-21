@@ -55,22 +55,36 @@ export const getAllJobs = async (req, res, next) => {
         next(error);
     }
 };
+export const getJobById = async (req, res, next) => {
+    try {
+
+        const job = await Job.findById(req.params.id);
+
+        if (!job) {
+            return res.status(404).json({ success: false, message: 'Job not found' });
+        }
+
+        res.status(200).json({ success: true, job });
+    } catch (error) {
+        next(error);
+    }
+};
 
 // controllers/job.js
 export const getFilteredJobs = async (req, res, next) => {
+    const { JobPosition, skills } = req.query;
     try {
-        const { skills } = req.query;
-
-        if (!skills) {
-            return next(new ErrorHandler('Skills parameter is required for filtering jobs.', 400));
+        let query = {};
+        if (JobPosition) {
+            query.JobPosition = JobPosition;
         }
-        const skillsArray = skills.split(',');
-
-        const jobs = await Job.find({ SkillsRequired: { $in: skillsArray } });
-
-        res.status(200).json({ success: true, jobs });
+        if (skills) {
+            query.skills = { $in: skills.split(',') };
+        }
+        console.log(query)
+        const JobPosts = await Job.find(query).sort({ createdAt: -1 });
+        res.status(200).json({ success: true, JobPosts });
     } catch (error) {
-        // Handle errors
         console.error('Error filtering jobs by skills:', error);
         next(error);
     }
