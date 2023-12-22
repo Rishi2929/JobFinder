@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import './Header.scss'
-import rect from '../assets/Rectangle 4.png'
-import rect2 from '../assets/Rectangle 3.png'
-import rect3 from '../assets/Rectangle 2.png'
+import rect from '../../assets/Rectangle 4.png'
+import rect2 from '../../assets/Rectangle 3.png'
+import rect3 from '../../assets/Rectangle 2.png'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { Context } from '../main'
+import { Context } from '../../main'
 import toast from 'react-hot-toast';
 
 

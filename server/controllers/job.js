@@ -35,6 +35,21 @@ export const updateJob = async (req, res, next) => {
 
         Object.assign(job, req.body);
 
+        // job.companyName = req.body.companyName;
+        // job.logoURL = req.body.logoURL;
+        // job.JobPosition = req.body.JobPosition;
+        // job.MonthlySalary = req.body.MonthlySalary;
+        // job.JobType = req.body.JobType;
+        // job.remote = req.body.remote;
+        // job.Location = req.body.Location;
+        // job.JobDescription = req.body.JobDescription;
+        // job.AboutCompany = req.body.AboutCompany;
+        // job.Information = req.body.Information;
+        // job.skills = req.body.skills;
+
+
+
+
         await job.save();
 
 

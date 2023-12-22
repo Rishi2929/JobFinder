@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './JobPage.scss';
+import './AddJobPage.scss';
 import jobImg from '../../assets/add-jb.png';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function JobPage() {
+function AddJobPage() {
     const [companyName, setCompanyName] = useState("")
     // const [recruiterName, setRecruiterName] = useState("")
     const [logoURL, setLogoUrl] = useState("")
@@ -18,18 +18,18 @@ function JobPage() {
     const [Location, setLocation] = useState("")
     const [JobDescription, setJobDescription] = useState("")
     const [AboutCompany, setAboutCompany] = useState("")
-    const [SkillsRequired, setSkillsRequired] = useState([])
+    const [skills, setSkills] = useState([])
     const [Information, setInformation] = useState("")
 
     //Submit Button
     const submitHandler = async (e) => {
-        e.preventDefault()
-        console.log("first")
+        e.preventDefault();
+        console.log("first");
         try {
             const token = localStorage.getItem('token');
 
-            const { data } = await axios.post("http://localhost:3000/api/v1/job/new", {
-                companyName, logoURL, JobPosition, MonthlySalary, JobType, remote, Location, JobDescription, AboutCompany, SkillsRequired, Information,
+            const response = await axios.post("http://localhost:3000/api/v1/job/new", {
+                companyName, logoURL, JobPosition, MonthlySalary, JobType, remote, Location, JobDescription, AboutCompany, skills, Information,
             },
                 {
                     withCredentials: true,
@@ -37,29 +37,30 @@ function JobPage() {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
                     },
-                })
+                });
 
-            setCompanyName(""),
-                setLogoUrl(""),
-                setJobPosition(""),
-                setMonthlySalary(""),
-                setJobType(""),
-                setRemote(""),
-                setLocation(""),
-                setJobDescription(""),
-                setAboutCompany(""),
-                setSkillsRequired([]),
-                setInformation("")
+            // Check if 'data' property exists in the response
+            const data = response.data || {};
 
-            toast.success(data.message)
+            setCompanyName("");
+            setLogoUrl("");
+            setJobPosition("");
+            setMonthlySalary("");
+            setJobType("");
+            setRemote("");
+            setLocation("");
+            setJobDescription("");
+            setAboutCompany("");
+            setSkills([]);
+            setInformation("");
 
+            toast.success(data.message);
         } catch (error) {
-            // toast.error("All fields are required")
-            console.log(error.response.data)
-            // console.log("error")
-
+            console.error(error.response ? error.response.data : error.message);
+            toast.error("An error occurred while adding the job");
         }
-    }
+    };
+
 
     return (
         <div className='add-job-page'>
@@ -114,7 +115,7 @@ function JobPage() {
                             </div>
                             <div className="input-container">
                                 <label>Skills Required </label>
-                                <input type="text" placeholder="Enter the must-have Skills" value={SkillsRequired} onChange={(e) => setSkillsRequired(e.target.value)} required />
+                                <input type="text" placeholder="Enter the must-have Skills" value={skills} onChange={(e) => setSkills(e.target.value)} required />
                             </div>
                             <div className="input-container">
                                 <label>Information</label>
@@ -136,4 +137,4 @@ function JobPage() {
     );
 }
 
-export default JobPage;
+export default AddJobPage;

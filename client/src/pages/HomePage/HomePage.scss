@@ -18,6 +18,12 @@ $placeholder-color: #9C9C9C;
 
             img {
                 margin-top: 0.4rem;
+
+            }
+
+            .dynamic-img {
+                width: 3.5rem;
+                height: 3rem;
             }
 
             .job-title {
@@ -29,7 +35,7 @@ $placeholder-color: #9C9C9C;
         .col2 {
             display: flex;
             width: 70vw;
-            margin-top: -1.6rem;
+            margin-top: -1.1rem;
             margin-left: 4.2rem;
             // background-color: blanchedalmond;
 
@@ -101,13 +107,14 @@ $placeholder-color: #9C9C9C;
 
                 .flex-btn {
                     display: flex;
-                    margin-left: 12rem;
+                    margin-left: 17rem;
 
                     .details-btn {
                         background-color: $primary-color;
                         color: white;
-                        margin-left: 1rem;
+                        margin-left: 9.5rem;
                         padding-left: 20px;
+                        position: absolute;
                         // margin-right: -15rem;
 
                     }
@@ -186,7 +193,7 @@ $placeholder-color: #9C9C9C;
             .job-btn {
                 display: block;
                 width: 7rem;
-                margin-right: 0rem;
+                margin-left: 5.5rem;
                 height: 1.5rem;
                 padding: 10px;
                 padding-left: 2rem;
