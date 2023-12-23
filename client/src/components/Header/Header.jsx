@@ -5,7 +5,7 @@ import rect2 from '../../assets/Rectangle 3.png'
 import rect3 from '../../assets/Rectangle 2.png'
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-import { Context } from '../../main'
+import { Context, server } from '../../main'
 import toast from 'react-hot-toast';
 
 
@@ -17,7 +17,7 @@ function Header() {
 
     const logoutHandler = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/v1/user/logout');
+            const response = await axios.get(`${server}/api/v1/user/logout`);
             localStorage.removeItem('token');
             localStorage.removeItem('Recruiter Name'); // Remove user information
 
