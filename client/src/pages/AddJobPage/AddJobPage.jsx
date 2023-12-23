@@ -4,6 +4,7 @@ import jobImg from '../../assets/add-jb.png';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { server } from '../../main';
 
 
 
@@ -28,7 +29,7 @@ function AddJobPage() {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await axios.post("http://localhost:3000/api/v1/job/new", {
+            const response = await axios.post(`${server}/api/v1/job/new`, {
                 companyName, logoURL, JobPosition, MonthlySalary, JobType, remote, Location, JobDescription, AboutCompany, skills, Information,
             },
                 {

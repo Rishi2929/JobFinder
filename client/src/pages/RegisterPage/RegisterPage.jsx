@@ -4,7 +4,7 @@ import img from '../../assets/img1.png';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { Context } from '../../main';
+import { Context, server } from '../../main';
 
 function RegisterPage() {
     const [name, setName] = useState('');
@@ -35,7 +35,7 @@ function RegisterPage() {
 
             try {
                 console.log('Sending registration request...');
-                const response = await axios.post('http://localhost:3000/api/v1/user/register', {
+                const response = await axios.post(`${server}/api/v1/user/register`, {
                     name,
                     email,
                     mobile,

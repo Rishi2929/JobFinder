@@ -5,6 +5,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import { server } from '../../main';
 function EditJobPage() {
     const [companyName, setCompanyName] = useState("")
     const [logoURL, setLogoUrl] = useState("")
@@ -24,7 +25,7 @@ function EditJobPage() {
     useEffect(() => {
         const fetchJobDetails = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/v1/job/list/${jobId}`);
+                const response = await axios.get(`${server}/api/v1/job/list/${jobId}`);
                 const jobDetails = response.data.job;
 
                 setCompanyName(jobDetails.companyName);
@@ -73,7 +74,7 @@ function EditJobPage() {
             };
 
 
-            await axios.put(`http://localhost:3000/api/v1/job/update/${jobId}`, updatedJob, config);
+            await axios.put(`${server}/api/v1/job/update/${jobId}`, updatedJob, config);
             toast.success('Job updated successfully');
         } catch (error) {
             console.error('Error updating job:', error);

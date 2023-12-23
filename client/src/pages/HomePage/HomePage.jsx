@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import Header from '../../components/Header/Header';
-import { Context } from '../../main';
+import { Context, server } from '../../main';
 import img4 from '../../assets/X.png';
 import rupee from '../../assets/rupee.png';
 import group from '../../assets/Group.png';
@@ -18,7 +18,8 @@ function HomePage() {
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/v1/job/skills')
+        fetch(`${server}/api/v1/job/skills`)
+
             .then(response => response.json())
             .then(data => setSkills(data.skills))
             .catch(error => console.error('Error fetching skills:', error));
@@ -27,14 +28,14 @@ function HomePage() {
     useEffect(() => {
         const fetchJobs = async () => {
             try {
-                let filteredUrl = 'http://localhost:3000/api/v1/job/list';
+                let filteredUrl = `${server}/api/v1/job/list`;
 
                 // Add search term to the URL if present
                 if (searchTerm) {
                     filteredUrl += `?JobPosition=${encodeURIComponent(searchTerm)}`;
                 } else if (selectedSkills.length > 0) {
                     const skillsQueryParam = selectedSkills.join(',');
-                    filteredUrl = `http://localhost:3000/api/v1/job/filtered?skills=${skillsQueryParam}`;
+                    filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsQueryParam}`;
                 }
 
                 const response = await fetch(filteredUrl);
@@ -57,14 +58,14 @@ function HomePage() {
     }, [selectedSkills, searchTerm]);
     const fetchJobs = async () => {
         try {
-            let filteredUrl = 'http://localhost:3000/api/v1/job/list';
+            let filteredUrl = `${server}/api/v1/job/list`;
 
             if (searchTerm) {
                 filteredUrl += `?JobPosition=${encodeURIComponent(searchTerm)}`;
                 console.log(filteredUrl)
             } else if (selectedSkills.length > 0) {
                 const skillsQueryParam = selectedSkills.join(',');
-                filteredUrl = `http://localhost:3000/api/v1/job/filtered?skills=${skillsQueryParam}`;
+                filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsQueryParam}`;
             }
 
             const response = await fetch(filteredUrl);

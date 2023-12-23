@@ -16,11 +16,10 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: [process.env.FRONTEND_URI],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin: 'http://localhost:5173', // Update with your frontend URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-}))
-
+}));
 // Health check route
 app.get('/health', (req, res) => {
     res.status(200).json({

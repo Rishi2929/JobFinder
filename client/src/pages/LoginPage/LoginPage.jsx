@@ -17,11 +17,11 @@ function LoginPage() {
 
         try {
             console.log('Sending Login request...');
-            const response = await axios.post('http://localhost:3000/api/v1/user/login', {
+            const response = await axios.post(`https://job-listing-tgz8.onrender.com/api/v1/user/login`, {
                 email,
                 password,
             });
-
+            console.log("first")
             // Store user information
             localStorage.setItem('Recruiter Name', JSON.stringify(response.data.name));
             const token = response.data.token;

@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Icon } from '@iconify/react';
 import Header from '../../components/Header/Header';
 import './DetailsPage.scss';
+import { server } from '../../main';
 
 function DetailPage() {
     // State for holding job details
@@ -16,7 +17,7 @@ function DetailPage() {
         const fetchJobDetails = async () => {
             try {
                 // Fetch job details using axios
-                const response = await axios.get(`http://localhost:3000/api/v1/job/list/${jobId}`);
+                const response = await axios.get(`${server}/api/v1/job/list/${jobId}`);
                 // Update state with the fetched job details
                 setJob(response.data.job);
             } catch (error) {
