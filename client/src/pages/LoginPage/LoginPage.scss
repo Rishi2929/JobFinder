@@ -65,6 +65,15 @@
             margin-bottom: 1rem;
 
         }
+
+        .dialog-login {
+            display: flex;
+            color: #525252;
+
+            .sign-up-link {
+                color: black;
+            }
+        }
     }
 
     .right-div {

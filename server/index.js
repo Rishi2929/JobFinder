@@ -16,11 +16,13 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(cors({
-    origin: [process.env.FRONTEND_URI],
+    // origin: [process.env.FRONTEND_URI],
+    origin: '*',
+
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
 }))
-console.log(process.env.FRONTEND_URI)
+// console.log(process.env.FRONTEND_URI)
 
 // Health check route
 app.get('/health', (req, res) => {

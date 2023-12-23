@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Context } from '../../main';
+import { Context, server } from '../../main';
 import img from '../../assets/img1.png';
 import './LoginPage.scss';
 
@@ -14,49 +14,40 @@ function LoginPage() {
 
     const handleLogin = async (e) => {
         e.preventDefault();
-
         try {
             console.log('Sending Login request...');
-            const response = await axios.post(`https://job-listing-tgz8.onrender.com/api/v1/user/login`, {
+            const response = await axios.post('http://localhost:3000/api/v1/user/login', {
                 email,
                 password,
             });
-            console.log("first")
-            // Store user information
-            localStorage.setItem('Recruiter Name', JSON.stringify(response.data.name));
+            console.log("User", response.data.name)
+            localStorage.setItem('Recruiter Name', JSON.stringify(response.data.name)); // Store user information
+
+
             const token = response.data.token;
             localStorage.setItem('token', token);
 
-            toast.success(response.data.message);
 
-            // Set user authentication status
+            toast.success(response.data.message);
+            setIsAuthenticated(true);
+
+
             setIsAuthenticated({
                 isAuthenticated: true,
                 user: {
                     name: response.data.name,
-                },
+                }
             });
+            navigate('/')
 
-            // Set a timeout to automatically log out the user when the token expires
-            const tokenExpirationTime = new Date(response.data.expiresIn * 1000);
-            const currentTime = new Date();
-
-            const timeUntilExpiration = tokenExpirationTime - currentTime;
-
-            setTimeout(() => {
-                // Log out the user when the token expires
-                localStorage.removeItem('Recruiter Name');
-                localStorage.removeItem('token');
-                setIsAuthenticated(false);
-            }, timeUntilExpiration);
-
-            navigate('/');
 
         } catch (error) {
+            // console.log("first login failed")
             toast.error(error.response.data.message);
             setIsAuthenticated(false);
         }
     };
+
 
     return (
         <div>
@@ -71,8 +62,10 @@ function LoginPage() {
                         <button type="submit" className="btn">Sign in</button>
                     </form>
 
-                    <p>Don’t have an account?</p>
-                    <Link to="/register">Sign Up</Link>
+                    <div className="dialog-login">
+                        <p>Don’t have an account?</p>
+                        <Link to="/register" className="sign-up-link">Sign Up</Link>
+                    </div>
                 </div>
 
                 <div className="right-div">

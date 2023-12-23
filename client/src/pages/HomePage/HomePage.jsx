@@ -37,6 +37,10 @@ function HomePage() {
                     const skillsQueryParam = selectedSkills.join(',');
                     filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsQueryParam}`;
                 }
+                else if (selectedSkills.length > 0) {
+                    const skillsTitle = selectedSkills.join(',');
+                    filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsTitle}`;
+                }
 
                 const response = await fetch(filteredUrl);
 
@@ -128,7 +132,6 @@ function HomePage() {
                             placeholder='Type any job title and press Enter to search'
                             value={searchTerm}
                             onChange={handleSearch}
-                            onKeyPress={handleKeyPress} // Added onKeyPress event
                         />
                     </div>
 

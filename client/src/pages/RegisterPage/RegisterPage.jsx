@@ -89,8 +89,8 @@ function RegisterPage() {
                         <button type="submit" className='btn'>Create Account</button>
                     </form>
                     <div className="bottom-cont">
-                        <p>Don’t have an account?</p>
-                        <Link to="/login">Sign In</Link>
+                        <p>Already have an account?</p>
+                        <Link to="/login" className='sign-up-link'>Sign In</Link>
                     </div>
 
                 </div>
