@@ -37,6 +37,19 @@ function LoginPage() {
                 },
             });
 
+            // Set a timeout to automatically log out the user when the token expires
+            const tokenExpirationTime = new Date(response.data.expiresIn * 1000);
+            const currentTime = new Date();
+
+            const timeUntilExpiration = tokenExpirationTime - currentTime;
+
+            setTimeout(() => {
+                // Log out the user when the token expires
+                localStorage.removeItem('Recruiter Name');
+                localStorage.removeItem('token');
+                setIsAuthenticated(false);
+            }, timeUntilExpiration);
+
             navigate('/');
 
         } catch (error) {
