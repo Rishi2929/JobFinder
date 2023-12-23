@@ -29,7 +29,7 @@ function HomePage() {
         const fetchJobs = async () => {
             try {
                 let filteredUrl = `${server}/api/v1/job/list`;
-
+                console.log(filteredUrl)
                 // Add search term to the URL if present
                 if (searchTerm) {
                     filteredUrl += `?JobPosition=${encodeURIComponent(searchTerm)}`;
