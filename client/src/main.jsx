@@ -15,7 +15,6 @@ const AppWrapper = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem('token') ? true : false
   );
-
   useEffect(() => {
     // Check if token exists in localStorage and set isAuthenticated accordingly
     const storedToken = localStorage.getItem('token');

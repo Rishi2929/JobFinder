@@ -11,6 +11,7 @@ function DetailPage() {
     const [job, setJob] = useState({});
     // Extracting jobId from URL parameters
     const { jobId } = useParams();
+    // console.log(jobId)
 
     useEffect(() => {
         // Function to fetch job details from the API

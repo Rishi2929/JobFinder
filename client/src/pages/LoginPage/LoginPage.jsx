@@ -16,7 +16,7 @@ function LoginPage() {
         e.preventDefault();
         try {
             console.log('Sending Login request...');
-            const response = await axios.post('http://localhost:3000/api/v1/user/login', {
+            const response = await axios.post(`${server}/api/v1/user/login`, {
                 email,
                 password,
             });

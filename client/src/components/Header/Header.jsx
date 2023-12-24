@@ -17,7 +17,7 @@ function Header() {
 
     const logoutHandler = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/api/v1/user/logout');
+            const response = await axios.get(`${server}/api/v1/user/logout`);
             localStorage.removeItem('token');
             localStorage.removeItem('Recruiter Name'); // Remove user information
 
