@@ -4,8 +4,8 @@ import App from './App.jsx';
 import { createContext } from 'react';
 
 
-// export const server = "https://job-listing-tgz8.onrender.com"
-export const server = "http://localhost:3000"
+export const server = "https://job-listing-tgz8.onrender.com"
+// export const server = "http://localhost:3000"
 
 
 
