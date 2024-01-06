@@ -10,13 +10,14 @@ import './HomePage.scss';
 
 function HomePage() {
     const [jobs, setJobs] = useState([]);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const { isAuthenticated, setIsAuthenticated } = useContext(Context);
     const [skills, setSkills] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
 
+    // option
     useEffect(() => {
         fetch(`${server}/api/v1/job/skills`)
 
@@ -25,22 +26,21 @@ function HomePage() {
             .catch(error => console.error('Error fetching skills:', error));
     }, []);
 
+    //
     useEffect(() => {
         const fetchJobs = async () => {
             try {
                 let filteredUrl = `${server}/api/v1/job/list`;
-                console.log(filteredUrl)
-                // Add search term to the URL if present
+
+                // Add search term or selected skills to the URL if present
                 if (searchTerm) {
                     filteredUrl += `?JobPosition=${encodeURIComponent(searchTerm)}`;
                 } else if (selectedSkills.length > 0) {
-                    const skillsQueryParam = selectedSkills.join(',');
+                    const skillsQueryParam = encodeURIComponent(selectedSkills.join(','));
                     filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsQueryParam}`;
                 }
-                else if (selectedSkills.length > 0) {
-                    const skillsTitle = selectedSkills.join(',');
-                    filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsTitle}`;
-                }
+
+
 
                 const response = await fetch(filteredUrl);
 
@@ -60,41 +60,9 @@ function HomePage() {
 
         fetchJobs();
     }, [selectedSkills, searchTerm]);
-    const fetchJobs = async () => {
-        try {
-            let filteredUrl = `${server}/api/v1/job/list`;
-
-            if (searchTerm) {
-                filteredUrl += `?JobPosition=${encodeURIComponent(searchTerm)}`;
-                console.log(filteredUrl)
-            } else if (selectedSkills.length > 0) {
-                const skillsQueryParam = selectedSkills.join(',');
-                filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsQueryParam}`;
-            }
-
-            const response = await fetch(filteredUrl);
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch jobs');
-            }
-
-            const data = await response.json();
-
-            setJobs(data.jobs);
-        } catch (error) {
-            setError(error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchJobs();
-    }, [selectedSkills, searchTerm]);
 
     const handleSkillChange = (event) => {
         const skillValue = event.target.value;
-
         if (!selectedSkills.includes(skillValue)) {
             setSelectedSkills([...selectedSkills, skillValue]);
         }
@@ -103,14 +71,6 @@ function HomePage() {
     const removeSkill = (skillToRemove) => {
         const updatedSkills = selectedSkills.filter(skill => skill !== skillToRemove);
         setSelectedSkills(updatedSkills);
-    };
-    const handleKeyPress = (event) => {
-        // Check if the pressed key is Enter (key code 13)
-        if (event.key === 'Enter') {
-            // Trigger the search
-            console.log("first")
-            fetchJobs();
-        }
     };
 
     const handleSearch = (event) => {

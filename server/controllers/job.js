@@ -34,22 +34,6 @@ export const updateJob = async (req, res, next) => {
         if (!job) return next(new ErrorHandler("Job not found", 404))
 
         Object.assign(job, req.body);
-
-        // job.companyName = req.body.companyName;
-        // job.logoURL = req.body.logoURL;
-        // job.JobPosition = req.body.JobPosition;
-        // job.MonthlySalary = req.body.MonthlySalary;
-        // job.JobType = req.body.JobType;
-        // job.remote = req.body.remote;
-        // job.Location = req.body.Location;
-        // job.JobDescription = req.body.JobDescription;
-        // job.AboutCompany = req.body.AboutCompany;
-        // job.Information = req.body.Information;
-        // job.skills = req.body.skills;
-
-
-
-
         await job.save();
 
 
@@ -89,26 +73,37 @@ export const getJobById = async (req, res, next) => {
 // controllers/job.js
 export const getFilteredJobs = async (req, res, next) => {
     try {
-        const { skills } = req.query;
+        const { skills, jobPosition } = req.query;
 
-        if (!skills || typeof skills !== 'string' || skills.trim() === '') {
-            res.status(400).json({ success: false, message: 'Invalid or missing skills parameter' });
+        if ((!skills || typeof skills !== 'string' || skills.trim() === '') && (!jobPosition || typeof jobPosition !== 'string' || jobPosition.trim() === '')) {
+            res.status(400).json({ success: false, message: 'Invalid or missing skills and jobPosition parameters' });
             return;
         }
 
-        const jobs = await Job.find({ skills: { $in: skills.split(',') } });
+        let query = {};
+
+        if (skills) {
+            query.skills = { $in: skills.split(',') };
+        }
+
+        if (jobPosition) {
+            query.JobPosition = { $regex: new RegExp(jobPosition, 'i') };
+        }
+
+        const jobs = await Job.find(query);
 
         if (!jobs.length) {
-            res.status(404).json({ success: false, message: 'No jobs found with the specified skills' });
+            res.status(404).json({ success: false, message: 'No jobs found with the specified skills and jobPosition' });
             return;
         }
 
         res.status(200).json({ success: true, jobs });
     } catch (error) {
-        console.error('Error filtering jobs by skills:', error);
+        console.error('Error filtering jobs:', error);
         next(error);
     }
 };
+
 
 
 // controllers/job.js

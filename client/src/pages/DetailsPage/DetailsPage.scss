@@ -21,6 +21,8 @@
 
     }
 
+
+
     .main-details {
         background-color: white;
         width: 59.5vw;
@@ -37,6 +39,26 @@
 
         .row-2 {
             margin-top: 1rem;
+            display: flex;
+
+            .editbtn {
+                // display: flex;
+                position: relative;
+                justify-content: center;
+                align-items: center;
+                margin-left: 34rem;
+
+
+                .edit-btn {
+                    background-color: #ED5353;
+                    color: white;
+                    width: 10rem;
+                    padding-left: 2rem;
+                    padding-right: 2rem;
+
+
+                }
+            }
         }
 
         .row-3 {

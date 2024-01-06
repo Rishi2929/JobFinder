@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { server } from '../../main';
+
 function EditJobPage() {
     const [companyName, setCompanyName] = useState("")
     const [logoURL, setLogoUrl] = useState("")
@@ -41,7 +42,6 @@ function EditJobPage() {
                 setInformation(jobDetails.Information);
             } catch (error) {
                 console.error('Error fetching job details:', error);
-                // Handle error as needed
             }
         };
 
@@ -78,7 +78,7 @@ function EditJobPage() {
             toast.success('Job updated successfully');
         } catch (error) {
             console.error('Error updating job:', error);
-            // Handle error as needed
+
         }
     };
 
