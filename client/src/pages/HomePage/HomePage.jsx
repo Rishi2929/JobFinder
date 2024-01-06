@@ -29,22 +29,29 @@ function HomePage() {
     //
     useEffect(() => {
         const fetchJobs = async () => {
+            // console.log("fetch jobs")
             try {
                 let filteredUrl = `${server}/api/v1/job/list`;
 
                 // Add search term or selected skills to the URL if present
                 if (searchTerm) {
-                    filteredUrl += `?JobPosition=${encodeURIComponent(searchTerm)}`;
+                    // console.log("Search term: " + searchTerm);
+                    filteredUrl = `${server}/api/v1/job/filtered?jobPosition=${encodeURIComponent(searchTerm)}`;
+                    // console.log(filteredUrl)
+
                 } else if (selectedSkills.length > 0) {
+                    console.log("skills")
                     const skillsQueryParam = encodeURIComponent(selectedSkills.join(','));
                     filteredUrl = `${server}/api/v1/job/filtered?skills=${skillsQueryParam}`;
+                    // console.log(filteredUrl)
                 }
 
 
-
+                // console.log("outside statements")
                 const response = await fetch(filteredUrl);
 
                 if (!response.ok) {
+                    // console.log("error")
                     throw new Error('Failed to fetch jobs');
                 }
 
@@ -54,7 +61,8 @@ function HomePage() {
             } catch (error) {
                 setError(error.message);
             } finally {
-                setLoading(false);
+                // setLoading(false);
+
             }
         };
 
@@ -75,6 +83,7 @@ function HomePage() {
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
+
     };
 
     // Render jobs
@@ -198,3 +207,6 @@ function HomePage() {
 
 // Export the HomePage component
 export default HomePage;
+
+
+

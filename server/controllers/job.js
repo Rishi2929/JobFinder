@@ -71,38 +71,40 @@ export const getJobById = async (req, res, next) => {
 
 // controllers/job.js
 // controllers/job.js
+// controllers/job.js
+
 export const getFilteredJobs = async (req, res, next) => {
     try {
         const { skills, jobPosition } = req.query;
 
-        if ((!skills || typeof skills !== 'string' || skills.trim() === '') && (!jobPosition || typeof jobPosition !== 'string' || jobPosition.trim() === '')) {
-            res.status(400).json({ success: false, message: 'Invalid or missing skills and jobPosition parameters' });
-            return;
-        }
-
-        let query = {};
+        // Build the filter criteria based on the provided query parameters
+        const filterCriteria = {};
 
         if (skills) {
-            query.skills = { $in: skills.split(',') };
+            // Convert skills to an array if it's a comma-separated string
+            const skillsArray = skills.split(',');
+            filterCriteria.skills = { $in: skillsArray };
         }
 
         if (jobPosition) {
-            query.JobPosition = { $regex: new RegExp(jobPosition, 'i') };
+            filterCriteria.JobPosition = { $regex: new RegExp(jobPosition, 'i') };
         }
 
-        const jobs = await Job.find(query);
+        // Perform the filtered query
+        const filteredJobs = await Job.find(filterCriteria);
 
-        if (!jobs.length) {
-            res.status(404).json({ success: false, message: 'No jobs found with the specified skills and jobPosition' });
-            return;
+        if (filteredJobs.length === 0) {
+            return res.status(404).json({ success: false, message: 'No matching jobs found' });
         }
 
-        res.status(200).json({ success: true, jobs });
+        res.status(200).json({ success: true, jobs: filteredJobs });
     } catch (error) {
-        console.error('Error filtering jobs:', error);
+        console.error('Error fetching filtered jobs:', error);
         next(error);
     }
 };
+
+
 
 
 
