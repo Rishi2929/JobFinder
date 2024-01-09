@@ -10,10 +10,11 @@ function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { isAuthenticated, setIsAuthenticated } = useContext(Context);
+    const { isAuthenticated, setIsAuthenticated, loading, setLoading } = useContext(Context);
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             console.log('Sending Login request...');
             const response = await axios.post(`${server}/api/v1/user/login`, {
@@ -39,12 +40,13 @@ function LoginPage() {
                 }
             });
             navigate('/')
-
-
+            setLoading(false);
         } catch (error) {
             // console.log("first login failed")
             toast.error(error.response.data.message);
             setIsAuthenticated(false);
+            setLoading(false);
+
         }
     };
 
@@ -59,7 +61,7 @@ function LoginPage() {
                     <form onSubmit={handleLogin}>
                         <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <button type="submit" className="btn">Sign in</button>
+                        <button type="submit" className="btn" disabled={loading}>Sign in</button>
                     </form>
 
                     <div className="dialog-login">

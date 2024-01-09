@@ -14,7 +14,7 @@ function RegisterPage() {
     const [isChecked, setIsChecked] = useState(false);
     const [checkBoxError, setCheckBoxError] = useState("");
     const navigate = useNavigate();
-    const { isAuthenticated, setIsAuthenticated } = useContext(Context)
+    const { isAuthenticated, setIsAuthenticated, loading, setLoading } = useContext(Context);
 
 
     const handleCheckboxChange = (e) => {
@@ -26,6 +26,7 @@ function RegisterPage() {
     const handleRegister = async (e) => {
         e.preventDefault();
         setCheckBoxError(false);
+        setLoading(true)
 
 
         if (!isChecked) {
@@ -42,8 +43,7 @@ function RegisterPage() {
                     password,
                 });
 
-                // console.log('Registration response:', response);
-                localStorage.setItem('Recruiter Name', JSON.stringify(response.data.name)); // Store user information
+                localStorage.setItem('Recruiter Name', JSON.stringify(response.data.name));
 
 
                 if (response.data && response.data.message) {
@@ -53,14 +53,17 @@ function RegisterPage() {
                     setIsAuthenticated(true);
 
                     navigate('/')
+                    setLoading(false);
                 } else {
-                    // console.error('Unexpected response format:', response);
                     toast.error('Unexpected response format');
+                    setLoading(false);
                 }
 
             } catch (error) {
-                // console.error('Registration failed', error);
+                console.error('Registration failed', error);
                 toast.error("All fields are required");
+                setLoading(false);
+
             }
         }
     };
@@ -86,7 +89,7 @@ function RegisterPage() {
                         {checkBoxError ? <label className="checkbox_msg">Check this box if you want to proceed</label> : ""}
 
 
-                        <button type="submit" className='btn'>Create Account</button>
+                        <button type="submit" disabled={loading} className='btn'>Create Account</button>
                     </form>
                     <div className="bottom-cont">
                         <p>Already have an account?</p>

@@ -8,28 +8,30 @@ import { Link } from 'react-router-dom'
 import { Context, server } from '../../main'
 import toast from 'react-hot-toast';
 
-
 function Header() {
-    const { isAuthenticated, setIsAuthenticated } = useContext(Context)
+    const { isAuthenticated, setIsAuthenticated, loading, setLoading } = useContext(Context);
     const recruiterName = JSON.parse(localStorage.getItem('Recruiter Name'));
 
 
 
     const logoutHandler = async () => {
+        setLoading(true);
         try {
             const response = await axios.get(`${server}/api/v1/user/logout`);
             localStorage.removeItem('token');
-            localStorage.removeItem('Recruiter Name'); // Remove user information
+            localStorage.removeItem('Recruiter Name');
 
             setIsAuthenticated(false);
             toast.success(response.data.message);
+            setLoading(false);
+
         } catch (error) {
             toast.error(error.response.data.message);
             setIsAuthenticated(false);
+            setLoading(false);
+
         }
     };
-
-
 
     return (
         <div className='header'>
@@ -51,7 +53,7 @@ function Header() {
 
                     <div className='dialog-box'> {isAuthenticated ?
                         <div className="flex-btn">
-                            <button className='logout-btn' onClick={logoutHandler}>Logout</button>
+                            <button className='logout-btn' onClick={logoutHandler} disabled={loading}>Logout</button>
                             <p className='name'>Hello! {recruiterName}</p>
                         </div>
                         :

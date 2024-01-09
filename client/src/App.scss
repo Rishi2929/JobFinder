@@ -26,3 +26,13 @@
     border: 2px solid #ED5353;
     color: #ED5353;
 }
+
+.loader {
+    color: black;
+    text-align: center;
+}
+
+.btn:disabled {
+    opacity: 0.2;
+    cursor: not-allowed;
+}

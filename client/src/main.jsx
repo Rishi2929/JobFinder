@@ -15,6 +15,7 @@ const AppWrapper = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem('token') ? true : false
   );
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     // Check if token exists in localStorage and set isAuthenticated accordingly
     const storedToken = localStorage.getItem('token');
@@ -24,7 +25,9 @@ const AppWrapper = () => {
   }, []);
 
   return (
-    <Context.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <Context.Provider value={{
+      isAuthenticated, setIsAuthenticated, loading, setLoading,
+    }}>
       <App />
     </Context.Provider>
   );

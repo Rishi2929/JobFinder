@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './AddJobPage.scss';
 import jobImg from '../../assets/add-jb.png';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { server } from '../../main';
+import { Context, server } from '../../main';
 
 
 
 function AddJobPage() {
     const [companyName, setCompanyName] = useState("")
-    // const [recruiterName, setRecruiterName] = useState("")
     const [logoURL, setLogoUrl] = useState("")
     const [JobPosition, setJobPosition] = useState("")
     const [MonthlySalary, setMonthlySalary] = useState("")
@@ -21,19 +20,32 @@ function AddJobPage() {
     const [AboutCompany, setAboutCompany] = useState("")
     const [skills, setSkills] = useState([])
     const [Information, setInformation] = useState("")
+    const { loading, setLoading } = useContext(Context);
+
 
     //Submit Button
     const submitHandler = async (e) => {
         e.preventDefault();
         console.log("first");
+        setLoading(true)
         try {
             const token = localStorage.getItem('token');
 
             const response = await axios.post(`${server}/api/v1/job/new`, {
-                companyName, logoURL, JobPosition, MonthlySalary, JobType, remote, Location, JobDescription, AboutCompany, skills, Information,
+                companyName,
+                logoURL,
+                JobPosition,
+                MonthlySalary,
+                JobType,
+                remote,
+                Location,
+                JobDescription,
+                AboutCompany,
+                skills,
+                Information,
             },
                 {
-                    withCredentials: true,
+                    // withCredentials: true,
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
@@ -56,9 +68,14 @@ function AddJobPage() {
             setInformation("");
 
             toast.success(data.message);
+            setLoading(false)
         } catch (error) {
             console.error(error.response ? error.response.data : error.message);
             toast.error("An error occurred while adding the job");
+            console.error(error);
+
+            setLoading(false)
+
         }
     };
 
@@ -127,7 +144,7 @@ function AddJobPage() {
                 </div>
                 <div className="btns">
                     <Link to={'/'} className='cancel-btn'>Cancel</Link>
-                    <Link onClick={submitHandler} className='add-job-btn'>+ Add Job</Link>
+                    <button onClick={submitHandler} className='add-job-btn'>+ Add Job</button>
 
                 </div>
             </div>

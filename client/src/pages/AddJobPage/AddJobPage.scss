@@ -30,7 +30,7 @@
                     display: flex;
 
                     input {
-                        height: 3rem;
+                        height: 2.4rem;
                         border: 2px solid #ADADAD;
                         border-radius: 6px;
                     }
@@ -39,7 +39,7 @@
                         border: 2px solid #ADADAD;
                         border-radius: 6px;
                         width: 8rem;
-                        margin-left: -3.5rem;
+                        margin-left: -3.1rem;
                         padding-left: 2rem;
                         color: #ADADAD;
                     }
@@ -77,25 +77,28 @@
         }
 
         .btns {
-            margin-left: 38vw;
+            margin-left: 40.1vw;
             display: flex;
             width: 50vw;
 
             .add-job-btn {
+                font-size: 0.9rem;
                 width: 7rem;
-                margin-right: 3.5rem;
-                height: 2rem;
-                padding-top: 8px;
-                padding-left: 20px;
+                margin-right: 3.9rem;
+                height: 2.4rem;
+                // padding-top: 8px;
+                // padding-left: 6px;
                 background-color: #ED5353;
                 text-decoration: none;
                 border-radius: 5px;
                 color: white;
+                border: none;
+
             }
 
             .cancel-btn {
                 width: 5rem;
-                height: 1.8rem;
+                height: 1.6rem;
                 padding-top: 8px;
                 padding-left: 25px;
                 margin-right: 1rem;
